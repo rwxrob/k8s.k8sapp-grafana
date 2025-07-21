@@ -28,4 +28,4 @@ TODO document the backup procedure.
 
 ## Updating
 
-In order to quickly see the difference between versions during regular updates the default values for all Helm charts are saved to their own directory under `[resources](resources)`. Simply change the `*CHART_VERSION` to the new one and do a `git diff` to see all changes. See the `[build](build)` script for details.
+In order to quickly see the difference between versions during regular updates the default values for all Helm charts are saved to their own directory under [`resources`](resources). Simply change the `*CHART_VERSION` to the new one and do a `git diff` to see all changes. See the [`build`](build) script for details.
