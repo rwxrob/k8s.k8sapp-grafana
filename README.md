@@ -1,9 +1,8 @@
 # k8s.k8sapp-grafana
 
-
 ## Description
 
-This k8sapp contains Grafana and an enclosed MariaDB instance backing it. An Istio VirtualServer is also provided. A Job with a ServiceAccount to dynamically create a ConfigMap containing the required `grafana.ini` file from a secure ConfigMap template filled with the secrets required by this version of Grafana.
+This k8sapp contains Grafana derived from the bitnama/grafana Helm chart. An Istio VirtualServer is also provided.
 
 ## Prerequisites
 
@@ -12,8 +11,6 @@ Secrets at the followings paths must be create "by hand" in Vault or this k8sapp
 ```bash
 kv/k8s-admin/k8s/CLUSTER/grafana/gh-client-secret
 kv/k8s-admin/k8s/CLUSTER/grafana/grafana-admin
-kv/k8s-admin/k8s/CLUSTER/grafana/grafana-db-mariadb
-kv/k8s-admin/k8s/CLUSTER/grafana/icinga-api-secret
 ```
 
 TODO add the sample JSON file for the latest version
@@ -26,7 +23,7 @@ TODO document the delay of the secrets update Job.
 
 TODO document the backup procedure.
 
-TODO add warning about not cluttering `resources/{grafana,mariadb}/values.yaml`
+TODO add warning about not cluttering `resources/grafana/values.yaml`
 
 ## Updating
 

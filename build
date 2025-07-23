@@ -2,7 +2,6 @@
 set -e
 
 : "${GRAFANA_CHART_VERSION:=11.3.10}" # Grafana v11.1.0
-: "${MARIADB_CHART_VERSION:=13.0.3}"  # MariaDB v11.0.3
 : "${K8SAPP_APPLICATION_VERSION:=$GRAFANA_CHART_VERSION}"
 
 # TODO add proxy env vars
@@ -12,11 +11,9 @@ helm repo update bitnami
 
 # save the defaults for git diffing later when upgrading
 helm pull bitnami/grafana --untar --version "$GRAFANA_CHART_VERSION"
-helm pull bitnami/mariadb --untar --version "$MARIADB_CHART_VERSION"
-for i in grafana mariadb; do
-	mkdir -p "defaults/$i"
-	mv "$i/values.yaml" "defaults/$i"
-	rm -rf "$i"
-done
+i=grafana
+mkdir -p "defaults/$i"
+mv "$i/values.yaml" "defaults/$i"
+rm -rf "$i"
 
 # TODO pull down and modify templates
