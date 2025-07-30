@@ -9,7 +9,7 @@ This k8sapp contains Grafana derived from the bitnama/grafana Helm chart. An Ist
 Get the version using the following command:
 
 ```sh
-oras repo tags docker.io/grafana/grafana |grep '^\d\d\?\.\d\d\?\.\d\d\?$' |sort -V
+oras repo tags docker.io/grafana/grafana |grep '^\d\d\?\.\d\d\?\.\d\d\?$' |sort -V | tail -1
 ```
 
 Secrets at the followings paths must be create "by hand" in Vault or this k8sapp will not initialize (which is dong by the `config-gen` Job).

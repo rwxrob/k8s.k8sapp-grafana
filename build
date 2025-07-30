@@ -1,19 +1,42 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 
-: "${GRAFANA_CHART_VERSION:=11.3.10}" # Grafana v11.1.0
+: "${GRAFANA_CHART_VERSION:=9.3.0}" # Grafana v11.1.0
 : "${K8SAPP_APPLICATION_VERSION:=$GRAFANA_CHART_VERSION}"
+
+#tstamp="$(date -u +%Y%m%d%H%M%S)"
 
 # TODO add proxy env vars
 
-helm repo add bitnami https://charts.bitnami.com/bitnami
-helm repo update bitnami
+# kuti k8sapp pull-default-values grafana/grafana $GRAFANA_CHART_VERSION
 
-# save the defaults for git diffing later when upgrading
-helm pull bitnami/grafana --untar --version "$GRAFANA_CHART_VERSION"
+helm pull oci://registry-1.docker.io/grafana/grafana --untar \
+	--version "$GRAFANA_CHART_VERSION"
 i=grafana
 mkdir -p "defaults/$i"
 mv "$i/values.yaml" "defaults/$i"
 rm -rf "$i"
 
-# TODO pull down and modify templates
+out="out.yaml"
+#out="out-$tstamp.yaml"
+
+# pull down and modify templates
+helm template grafana grafana/grafana \
+	--version "$GRAFANA_CHART_VERSION" \
+	--namespace grafana \
+	>"$out"
+
+# TODO put this into go code
+#yq -i '
+#del(
+#  .metadata.labels."helm.sh/*",
+#	.metadata.labels."app.kubernetes.io/managed-by",
+#	.spec.template.metadata.labels."helm.sh/*",
+#	.spec.template.metadata.labels."app.kubernetes.io/managed-by"
+#)
+#' "$out"
+
+# TODO convert all Secrets to ExternalSecrets
+
+# TODO delete helm related labels
+#
