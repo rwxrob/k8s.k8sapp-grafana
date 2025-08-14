@@ -1,0 +1,11 @@
+admin:
+  existingSecret: grafana-db-creds
+
+env:
+  GF_DATABASE_TYPE: postgres
+  GF_DATABASE_HOST: grafana-cnpg-rw.grafana.svc.cluster.local:5432
+  GF_DATABASE_NAME: grafana
+  GF_DATABASE_USER: "$(GF_SECURITY_ADMIN_USER)"
+  GF_DATABASE_PASSWORD: "$(GF_SECURITY_ADMIN_PASSWORD)"
+
+envFromSecret: grafana-db-creds

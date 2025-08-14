@@ -9,7 +9,7 @@ This k8sapp contains Grafana derived from the bitnama/grafana Helm chart. An Ist
 Get the version using the following command:
 
 ```sh
-oras repo tags docker.io/grafana/grafana |grep '^\d\d\?\.\d\d\?\.\d\d\?$' |sort -V | tail -1
+helm search repo grafana/grafana --versions | awk '$1 == "grafana/grafana"'
 ```
 
 Secrets at the followings paths must be create "by hand" in Vault or this k8sapp will not initialize (which is dong by the `config-gen` Job).
@@ -30,6 +30,14 @@ TODO document the delay of the secrets update Job.
 TODO document the backup procedure.
 
 TODO add warning about not cluttering `resources/grafana/values.yaml`
+
+TODO for testing locally (cluster: `minikube`)
+
+```sh
+kubectl port-forward -n grafana svc/grafana 3008:80
+```
+
+TODO document how to change the password (not by changing the secret, have to use the command line)
 
 ## Updating
 

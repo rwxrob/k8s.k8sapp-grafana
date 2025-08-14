@@ -1,0 +1,4 @@
+#!/bin/bash
+
+test -z "$K8SAPP_CLUSTER" && echo "K8SAPP_CLUSTER unset" && exit 1
+kubectl delete -k "manifests/$K8SAPP_CLUSTER"

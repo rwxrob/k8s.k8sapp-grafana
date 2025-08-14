@@ -1,0 +1,4 @@
+- Get working with specificied Secret
+- Update Grafana to use the same specified Secret
+- Convert Secrets to ExternalSecrets
+- Confirm that automated pgdump backups are happening
